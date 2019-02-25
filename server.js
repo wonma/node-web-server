@@ -6,6 +6,13 @@ const fs = require('fs')
 const port = process.env.PORT || 3000
 
 hbs.registerPartials(__dirname + '/views/partials')
+hbs.registerHelper('getCurrentYear', () => {
+    return new Date().getFullYear()
+})
+hbs.registerHelper('screamIt', (text) => {
+    return text.toUpperCase()
+})
+
 app.set('view engine', 'hbs')
 app.use((req, res, next) => {
     const now = new Date().toString()
@@ -19,23 +26,27 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use((req, res, next) => {
-    res.render('maintenance')
-})
+// app.use((req, res, next) => {
+//     res.render('maintenance')
+// })
 
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', (req, res) => { 
     res.render('home', {
         pageTitle: 'Home Page',
-        welcomeMessage: 'Welcome to my website!!',
-        currentYear: new Date().getFullYear()
+        welcomeMessage: 'Welcome to my website!!'
     })})
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        pageTitle: 'About Page',
-        currentYear: new Date().getFullYear()
+        pageTitle: 'About Page'
+    })
+})
+
+app.get('/projects', (req, res) => {
+    res.render('projects', {
+        pageTitle: 'Project Page'
     })
 })
 
