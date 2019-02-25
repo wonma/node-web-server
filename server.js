@@ -3,6 +3,8 @@ const hbs = require('hbs')
 const app = express()
 const fs = require('fs')
 
+const port = process.env.PORT || 3000
+
 hbs.registerPartials(__dirname + '/views/partials')
 app.set('view engine', 'hbs')
 app.use((req, res, next) => {
@@ -37,6 +39,6 @@ app.get('/about', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log('Server is ready!')
+app.listen(port, () => {
+    console.log(`Server is ready on ${port}!`)
 })
